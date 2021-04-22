@@ -1,8 +1,8 @@
 {
-  "name": "amazon-cognito-js",
+  "name": "rn-amazon-cognito-js",
   "description": "Cognito Sync Manager for AWS JavaScript SDK",
   "main": "./dist/amazon-cognito.min.js",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "author": {
     "name": "Amazon Web Services",
     "email": "aws@amazon.com",
@@ -17,7 +17,13 @@
     "url": "https://github.com/aws/amazon-cognito-js.git"
   },
   "license": "Apache-2.0",
-  "keywords": ["amazon","aws","cognito","identity","sync"],
+  "keywords": [
+    "amazon",
+    "aws",
+    "cognito",
+    "identity",
+    "sync"
+  ],
   "scripts": {
     "build": "grunt uglify umd"
   },
