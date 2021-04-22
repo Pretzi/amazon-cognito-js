@@ -4,6 +4,24 @@
 AWS = AWS || {};
 AWS.CognitoSyncManager = AWS.CognitoSyncManager || {};
 
+window.localStorage = {
+    _data: {},
+    setItem: function (id, val) {
+      return (this._data[id] = val);
+    },
+    
+    getItem: function (id) { return this._data[id]; },
+
+    removeItem: function (id) {
+      return delete this._data[id];
+    },
+    clear: function () {
+      return (this._data = {});
+    },
+};
+
+const parseFallback = "{}";
+
 AWS.CognitoSyncManager.StoreLocalStorage = (function() {
 
     /**
@@ -43,7 +61,7 @@ AWS.CognitoSyncManager.StoreLocalStorage = (function() {
             return callback(new Error('You must provide an identity id and dataset name.'), null);
         }
 
-        var records = JSON.parse(this.store.getItem(k));
+        var records = JSON.parse(this.store.getItem(k) || parseFallback);
 
         if (records && records[key]) {
             return callback(null, records[key]);
@@ -68,7 +86,7 @@ AWS.CognitoSyncManager.StoreLocalStorage = (function() {
             return callback(new Error('You must provide an identity id and dataset name.'), null);
         }
 
-        return callback(null, JSON.parse(this.store.getItem(k)));
+        return callback(null, JSON.parse(this.store.getItem(k) || parseFallback));
 
     };
 
@@ -85,7 +103,7 @@ AWS.CognitoSyncManager.StoreLocalStorage = (function() {
 
         var k = this.makeKey(identityId, datasetName);
 
-        var records = JSON.parse(this.store.getItem(k));
+        var records = JSON.parse(this.store.getItem(k) || parseFallback);
         if (!records) {
             records = {};
         }
@@ -130,7 +148,7 @@ AWS.CognitoSyncManager.StoreLocalStorage = (function() {
 
         var k = this.makeKey(identityId, datasetName);
 
-        var records = JSON.parse(this.store.getItem(k));
+        var records = JSON.parse(this.store.getItem(k) || parseFallback);
         if (!records) {
             records = {};
         }
